@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conecta Comunicação e Produtora — Mais que produzir, conectar.</title>
+<meta name="description" content="Produção audiovisual, criação de conteúdo, comunicação de marcas e cobertura de grandes eventos. Desde 2020, no Cariri paraibano.">
+<meta property="og:title" content="Conecta Comunicação e Produtora">
+<meta property="og:description" content="Mais que produzir, conectar. Vídeo, design, fotografia e cobertura de eventos com propósito.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --carvao:#1c1c1c;
+  --carvao-2:#262626;
+  --laranja:#e0561b;
+  --laranja-escuro:#b3441a;
+  --laranja-claro:#f27a3d;
+  --branco:#ffffff;
+  --cinza:#8e8a86;
+  --cinza-claro:#d9d4cf;
+
+  --chrome-bg:#2b2b2b;
+  --chrome-line:#3a3a3a;
+  --chrome-text:#cfcfcf;
+
+  --font:"Archivo",system-ui,sans-serif;
+
+  --step--1:clamp(.82rem,.78rem + .2vw,.92rem);
+  --step-0:clamp(1rem,.95rem + .3vw,1.125rem);
+  --step-1:clamp(1.15rem,1.05rem + .5vw,1.4rem);
+  --step-2:clamp(1.5rem,1.2rem + 1.4vw,2.4rem);
+  --step-3:clamp(2.2rem,1.4rem + 3.6vw,4.4rem);
+  --step-4:clamp(3rem,1.2rem + 8vw,8.5rem);
+
+  --wrap:1180px;
+  --gutter:clamp(1.25rem,4vw,3.5rem);
+  --radius-window:18px;
+  --radius-pill:999px;
+  --radius-clip:26px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+body{
+  font-family:var(--font);
+  font-size:var(--step-0);
+  line-height:1.55;
+  color:var(--branco);
+  background:var(--carvao);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--laranja-claro);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ============================================================
+   TYPE
+   ============================================================ */
+.display{
+  font-weight:900;
+  font-stretch:118%;
+  text-transform:uppercase;
+  line-height:.9;
+  letter-spacing:-.02em;
+}
+.display--xl{font-size:var(--step-4)}
+.display--l{font-size:var(--step-3)}
+.display--m{font-size:var(--step-2)}
+.lead{font-weight:600;font-size:var(--step-1);line-height:1.4;max-width:34ch}
+.body{font-weight:500;max-width:62ch}
+.body p + p{margin-top:1em}
+mark{background:var(--laranja);color:var(--branco);padding:.05em .25em;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.on-orange mark{background:var(--carvao)}
+
+/* ============================================================
+   SURFACES
+   ============================================================ */
+.grain{position:relative;isolation:isolate}
+.grain::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  opacity:.14;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.orange{background:var(--laranja);color:var(--branco)}
+.orange-waves{
+  background-color:var(--laranja);
+  background-image:repeating-radial-gradient(ellipse 140% 60% at 50% 130%,transparent 0 11px,rgba(0,0,0,.09) 11px 13px);
+}
+.dark{background:var(--carvao);color:var(--branco)}
+.wrap{width:min(100% - 2*var(--gutter),var(--wrap));margin-inline:auto}
+
+/* pill buttons — direct from the portfolio */
+.pill{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  padding:.7em 1.35em;border-radius:var(--radius-pill);
+  background:var(--branco);color:var(--laranja-escuro);
+  font-weight:800;text-transform:uppercase;letter-spacing:.01em;
+  font-size:var(--step--1);line-height:1.15;text-align:center;
+  transition:transform .18s ease,background .18s ease,color .18s ease;
+}
+.pill:hover{transform:translateY(-2px)}
+.pill--orange{background:var(--laranja);color:var(--branco)}
+.pill--dark{background:var(--carvao);color:var(--branco)}
+.pill--ghost{background:transparent;color:var(--branco);box-shadow:inset 0 0 0 2px currentColor}
+.pill .ico{width:1em;height:1em;flex:none}
+.pills{display:flex;flex-wrap:wrap;gap:.6rem}
+
+/* "clique e confira" hint */
+.hint{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-weight:900;font-stretch:118%;text-transform:uppercase;letter-spacing:.02em;
+  font-size:var(--step--1);opacity:.85;
+}
+.hint svg{width:1.4em;height:1.4em}
+
+/* ============================================================
+   APP WINDOW CHROME — the memorable device
+   ============================================================ */
+.window{
+  border-radius:var(--radius-window);
+  overflow:hidden;
+  background:var(--carvao);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+}
+.window__bar{
+  display:flex;align-items:center;gap:1.25rem;
+  background:var(--chrome-bg);
+  border-bottom:1px solid var(--chrome-line);
+  padding:.55rem .9rem;
+  font-size:.78rem;color:var(--chrome-text);font-weight:500;
+  white-space:nowrap;overflow:hidden;
+}
+.window__app{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;color:#fff}
+.window__app b{
+  display:inline-grid;place-items:center;width:1.25rem;height:1.25rem;border-radius:4px;
+  font-size:.62rem;font-weight:900;color:#fff;letter-spacing:-.02em;
+}
+.app-ae b{background:#4a2f87}.app-pr b{background:#8f2b78}.app-ps b{background:#0f4ea3}.app-lr b{background:#1a4a7a}.app-ai b{background:#c9611b}
+.window__menu{display:flex;gap:1rem;color:var(--chrome-text)}
+.window__menu span:hover{color:#fff}
+.window__title{margin-left:auto;color:#8a8a8a;font-weight:400}
+.window__ctl{display:flex;gap:.9rem;color:#9a9a9a;font-size:.9rem;margin-left:1rem}
+.window__tabs{
+  display:flex;gap:1.5rem;padding:.5rem .9rem;background:#232323;
+  border-bottom:1px solid var(--chrome-line);font-size:.78rem;color:#9a9a9a;
+}
+.window__tabs span{padding-bottom:.25rem}
+.window__tabs .is-on{color:#fff;border-bottom:2px solid var(--laranja)}
+.window__body{position:relative}
+@media (max-width:640px){
+  .window__menu,.window__title{display:none}
+  .window__tabs{gap:1rem;overflow:auto}
+}
+
+/* bezier anchor decoration (from the portfolio cover) */
+.bezier{position:absolute;pointer-events:none;z-index:0}
+.bezier path{fill:none;stroke:rgba(255,255,255,.45);stroke-width:2;stroke-linecap:round}
+.bezier .handle{stroke:rgba(255,255,255,.35);stroke-width:1;stroke-dasharray:3 4}
+.bezier .pt{fill:#c9c9c9}
+.bezier .pt--hollow{fill:var(--carvao);stroke:#c9c9c9;stroke-width:1.5}
+.on-orange .bezier .pt--hollow{fill:var(--laranja)}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(28,28,28,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav__in{display:flex;align-items:center;gap:2rem;padding:.9rem 0}
+.logo{display:inline-flex;flex-direction:column;line-height:1}
+.logo__word{display:inline-flex;align-items:center;gap:.1em;font-weight:500;font-size:1.65rem;letter-spacing:-.02em}
+.logo__mark{width:1.45em;height:.85em}
+.logo__sub{font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;opacity:.85;margin-top:.15rem}
+.nav__links{display:flex;gap:1.75rem;margin-left:auto;font-weight:600;font-size:.95rem}
+.nav__links a{opacity:.8;transition:opacity .15s}
+.nav__links a:hover{opacity:1}
+.nav__cta{margin-left:1rem}
+.nav__burger{display:none;margin-left:auto;width:44px;height:44px;border-radius:10px;place-items:center}
+.nav__burger span{display:block;width:22px;height:2px;background:#fff;box-shadow:0 -7px 0 #fff,0 7px 0 #fff}
+@media (max-width:820px){
+  .nav__links,.nav__cta{display:none}
+  .nav__burger{display:grid}
+  .nav.is-open .nav__links{
+    display:flex;flex-direction:column;gap:.25rem;
+    position:absolute;left:0;right:0;top:100%;
+    background:var(--carvao);padding:1rem var(--gutter) 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav.is-open .nav__links a{padding:.6rem 0;font-size:1.1rem}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;overflow:hidden;padding:clamp(3rem,7vw,6rem) 0 0}
+.hero__grid{
+  position:absolute;right:0;top:0;bottom:0;width:min(28vw,340px);pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(90deg,transparent,#000 40%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);
+}
+.hero__in{position:relative;z-index:1;display:grid;gap:clamp(2rem,5vw,4rem)}
+.hero__title{max-width:14ch}
+.hero__title .year{color:var(--laranja);display:block;font-stretch:100%;letter-spacing:0}
+.hero__row{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end}
+@media (max-width:760px){.hero__row{grid-template-columns:1fr}}
+.hero__lead{font-weight:600;font-size:var(--step-1);line-height:1.4;max-width:36ch;color:var(--cinza-claro)}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.75rem}
+
+/* timeline panel */
+.timeline{margin-top:clamp(2rem,5vw,4rem);position:relative;z-index:1}
+.timeline .window__body{background:#1f1f1f}
+.tl{display:grid;grid-template-columns:150px 1fr;font-size:.8rem}
+.tl__head{display:contents}
+.tl__head > div{border-bottom:1px solid var(--chrome-line);padding:.5rem .8rem;color:#9a9a9a;background:#242424}
+.tl__ruler{position:relative;height:100%;display:flex;align-items:flex-end;gap:0;padding:0!important}
+.tl__ruler i{flex:1;height:.55rem;border-left:1px solid #555;font-style:normal;font-size:.62rem;color:#8a8a8a;padding-left:.3rem;line-height:1}
+.tl__row{display:contents}
+.tl__label{padding:.7rem .8rem;border-bottom:1px solid var(--chrome-line);color:#cfcfcf;font-weight:600;display:flex;align-items:center;gap:.5rem;background:#242424}
+.tl__label::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--dot,var(--laranja))}
+.tl__track{position:relative;border-bottom:1px solid var(--chrome-line);padding:.45rem .5rem;min-height:2.6rem;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:12.5% 100%}
+.clip{
+  position:absolute;top:.45rem;bottom:.45rem;border-radius:6px;
+  background:var(--clip,var(--laranja));color:#fff;font-weight:700;font-size:.72rem;
+  display:flex;align-items:center;padding:0 .6rem;overflow:hidden;white-space:nowrap;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.clip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:35%;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 2px,transparent 2px 6px);opacity:.5}
+.tl__playhead{
+  position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--laranja-claro);z-index:2;
+  animation:scrub 14s linear infinite;
+}
+.tl__playhead::before{content:"";position:absolute;top:-1px;left:-7px;border:8px solid transparent;border-top:10px solid var(--laranja-claro);border-bottom:0}
+@keyframes scrub{from{left:0}to{left:100%}}
+.tl__body{position:relative;grid-column:1 / -1;display:grid;grid-template-columns:150px 1fr}
+.tl__body .tl__playhead{left:calc(150px)}
+@keyframes scrub2{from{left:150px}to{left:100%}}
+.tl__body .tl__playhead{animation-name:scrub2}
+@media (max-width:640px){
+  .tl,.tl__body{grid-template-columns:96px 1fr}
+  .tl__body .tl__playhead{left:96px}
+  @keyframes scrub2{from{left:96px}to{left:100%}}
+  .tl__label{font-size:.7rem;padding:.6rem .5rem}
+}
+
+/* arc divider — the giant circles from the portfolio */
+.arc{position:relative}
+.arc--bottom-orange::after,.arc--bottom-dark::after{
+  content:"";position:absolute;left:50%;transform:translateX(-50%);
+  bottom:-1px;width:200vw;height:9vw;max-height:130px;
+  border-radius:100% 100% 0 0 / 100% 100% 0 0;
+}
+.arc--bottom-orange::after{background:var(--laranja)}
+.arc--bottom-dark::after{background:var(--carvao)}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{padding:clamp(4rem,9vw,8rem) 0}
+.section__head{display:grid;gap:1.25rem;margin-bottom:clamp(2rem,4vw,3.5rem)}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+
+/* Quem somos — After Effects window */
+.about .window__body{display:grid;grid-template-columns:1.15fr .85fr}
+.about__text{padding:clamp(2rem,5vw,4rem);position:relative;overflow:hidden;
+  border-radius:0 0 46% 0 / 0 0 70% 0}
+.about__text .display{margin-bottom:1.25rem}
+.about__text .display span{color:var(--laranja);display:block}
+.about__media{background-color:var(--laranja);
+  background-image:repeating-radial-gradient(ellipse 140% 60% at 50% 130%,transparent 0 11px,rgba(0,0,0,.09) 11px 13px);
+  display:grid;gap:1.25rem;padding:clamp(1.5rem,4vw,3rem);align-content:center;margin-left:-3vw;padding-left:calc(3vw + clamp(1.5rem,4vw,3rem))}
+@media (max-width:860px){
+  .about .window__body{grid-template-columns:1fr}
+  .about__text{border-radius:0}
+  .about__media{margin-left:0;padding-left:clamp(1.5rem,4vw,3rem)}
+}
+
+/* photo placeholders — replace with real images */
+.photo{
+  position:relative;aspect-ratio:var(--ar,16/10);border-radius:var(--radius-clip);
+  border:4px solid #fff;overflow:hidden;background:var(--carvao-2);
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 10px,transparent 10px 22px);
+  display:grid;place-items:center;color:var(--cinza);font-size:.8rem;font-weight:600;text-align:center;padding:1rem;
+}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo--tall{--ar:9/16}
+.photo--square{--ar:1}
+
+/* Serviços — bands */
+.band{position:relative;overflow:hidden}
+.band__in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding:clamp(3.5rem,8vw,7rem) 0}
+@media (max-width:860px){.band__in{grid-template-columns:1fr}}
+.band .display--l{margin-bottom:1rem}
+.band__copy{display:grid;gap:1.5rem}
+.band__side{display:grid;gap:1rem}
+.band .on-orange .pill{background:#fff;color:var(--laranja-escuro)}
+
+/* tools ribbon (portfolio: AFTER EFFECTS + PREMIERE + PHOTOSHOP …) */
+.ribbon{overflow:hidden;background:var(--carvao);border-block:1px solid rgba(255,255,255,.08);padding:.9rem 0;
+  font-weight:900;font-stretch:118%;text-transform:uppercase;letter-spacing:.06em;font-size:var(--step-0);color:var(--cinza-claro)}
+.ribbon__track{display:flex;gap:2.5rem;width:max-content;animation:ticker 40s linear infinite;white-space:nowrap}
+.ribbon__track span{display:inline-flex;gap:2.5rem}
+.ribbon__track em{font-style:normal;color:var(--laranja)}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* instagram stats panel */
+.stats{background:#141414;border-radius:20px;padding:1rem;display:grid;gap:.35rem;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.stat{display:grid;grid-template-columns:52px 1fr;gap:.9rem;align-items:center;padding:.75rem .5rem;border-radius:12px}
+.stat + .stat{border-top:1px solid rgba(255,255,255,.06)}
+.stat__avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:.7rem;text-transform:uppercase;letter-spacing:.02em;
+  background:conic-gradient(from 180deg,var(--laranja),#f5b041,var(--laranja));color:#1c1c1c;box-shadow:0 0 0 3px #141414,0 0 0 4px var(--laranja)}
+.stat__name{font-weight:700;font-size:.95rem}
+.stat__nums{display:flex;gap:1.5rem;margin-top:.2rem;font-size:.8rem;color:#bdbdbd}
+.stat__nums b{display:block;color:#fff;font-size:1rem;font-weight:800}
+
+/* case study — full window */
+.case .window__body{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(2rem,5vw,4rem);padding:clamp(2rem,5vw,4rem);align-items:center}
+@media (max-width:860px){.case .window__body{grid-template-columns:1fr}}
+.case__poster{
+  border-radius:var(--radius-clip);aspect-ratio:3/4;overflow:hidden;position:relative;
+  background:#f0a020;
+  background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.07) 0 6px,transparent 6px 14px);
+  display:grid;align-content:start;justify-items:center;padding:2rem 1rem;gap:.5rem;text-align:center;color:#4a2a10;
+}
+.case__poster .crown{width:56px;height:36px}
+.case__poster .display{font-size:clamp(2rem,5vw,3.4rem);line-height:.88;font-stretch:80%}
+.case__poster small{position:absolute;bottom:1rem;left:1rem;right:1rem;font-size:.75rem;font-weight:600;opacity:.7}
+.case__text{display:grid;gap:1.25rem}
+.case__text .display{max-width:12ch}
+
+/* contact */
+.contact{position:relative;overflow:hidden;padding:clamp(4rem,10vw,9rem) 0 clamp(6rem,14vw,11rem);text-align:center}
+.contact__arcText{width:min(100%,900px);margin:0 auto;height:auto}
+.contact__arcText text{font-family:var(--font);font-weight:900;font-stretch:118%;text-transform:uppercase;font-size:86px;fill:#fff;letter-spacing:-1px}
+.contact__disc{position:absolute;left:50%;transform:translateX(-50%);bottom:-40vw;width:150vw;height:80vw;max-height:900px;background:var(--carvao);border-radius:50% 50% 0 0 / 100% 100% 0 0;z-index:0}
+.contact__body{position:relative;z-index:1;display:grid;gap:1.25rem;justify-items:center;margin-top:clamp(2rem,6vw,5rem)}
+.contact__lines{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:center;font-weight:900;font-stretch:118%;font-size:var(--step-1)}
+.contact__lines a:hover{color:var(--laranja-claro)}
+.contact__mail{font-weight:900;font-stretch:118%;text-transform:uppercase;font-size:var(--step-0);word-break:break-all}
+.contact__handle{font-weight:900;font-stretch:118%;text-transform:uppercase;font-size:var(--step-1);color:var(--laranja-claro);margin-top:1rem}
+
+footer{background:#121212;padding:2rem 0;font-size:.85rem;color:var(--cinza)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="topo">
+  <div class="wrap nav__in">
+    <a class="logo" href="#topo" aria-label="Conecta Comunicação e Produtora — início">
+      <span class="logo__word">Conecta
+        <svg class="logo__mark" viewBox="0 0 60 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="13" fill="none" stroke="#e0561b" stroke-width="5"/>
+          <circle cx="40" cy="18" r="13" fill="#e0561b"/>
+          <path d="M36 11l11 7-11 7z" fill="#fff"/>
+        </svg>
+      </span>
+      <span class="logo__sub">Comunicação e Produtora</span>
+    </a>
+    <button class="nav__burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
+    <nav class="nav__links" id="menu">
+      <a href="#quem-somos">Quem somos</a>
+      <a href="#servicos">O que fazemos</a>
+      <a href="#comunidades">Comunidades</a>
+      <a href="#case">Case</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="pill pill--orange nav__cta" href="#contato">Vamos conectar?</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero grain arc arc--bottom-orange">
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <svg class="bezier" style="left:0;bottom:8%;width:min(38vw,460px);height:auto" viewBox="0 0 460 300" aria-hidden="true">
+    <path class="draw" d="M40 0 V150 Q40 260 150 260 H460"/>
+    <line class="handle" x1="40" y1="150" x2="40" y2="230"/>
+    <line class="handle" x1="150" y1="260" x2="70" y2="260"/>
+    <rect class="pt" x="35" y="0" width="10" height="10"/>
+    <rect class="pt" x="35" y="145" width="10" height="10"/>
+    <circle class="pt--hollow pt" cx="40" cy="230" r="4"/>
+    <circle class="pt--hollow pt" cx="70" cy="260" r="4"/>
+    <rect class="pt" x="145" y="255" width="10" height="10"/>
+    <rect class="pt" x="455" y="255" width="10" height="10"/>
+  </svg>
+
+  <div class="wrap hero__in">
+    <h1 class="display display--xl hero__title">Mais que produzir, <span class="year">conectar.</span></h1>
+
+    <div class="hero__row">
+      <p class="hero__lead">Vídeo, design, fotografia e cobertura de eventos com propósito. Desde 2020, transformando histórias em narrativas visuais que aproximam pessoas, marcas e públicos.</p>
+      <div class="hero__actions">
+        <a class="pill pill--orange" href="#servicos">Ver o que fazemos</a>
+        <a class="pill pill--ghost" href="https://wa.me/5583989014340" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.4-3.5-3.1-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.6 1.1 2.8.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Timeline panel: the one orchestrated motion on the page -->
+    <div class="window timeline" aria-label="Linha do tempo com os serviços da Conecta">
+      <div class="window__bar">
+        <span class="window__app app-pr"><b>Pr</b> Adobe Premiere</span>
+        <span class="window__menu" aria-hidden="true"><span>Arquivo</span><span>Editar</span><span>Clipe</span><span>Sequência</span><span>Marcadores</span></span>
+        <span class="window__title">conecta_2026.prproj</span>
+        <span class="window__ctl" aria-hidden="true"><span>—</span><span>☐</span><span>✕</span></span>
+      </div>
+      <div class="window__tabs" aria-hidden="true"><span>Importar</span><span class="is-on">Editar</span><span>Exportar</span></div>
+      <div class="window__body">
+        <div class="tl">
+          <div class="tl__head">
+            <div>Sequência</div>
+            <div class="tl__ruler" aria-hidden="true">
+              <i>2020</i><i>2021</i><i>2022</i><i>2023</i><i>2024</i><i>2025</i><i>2026</i><i></i>
+            </div>
+          </div>
+          <div class="tl__body">
+            <div class="tl__playhead" aria-hidden="true"></div>
+            <div class="tl__row">
+              <div class="tl__label" style="--dot:#e0561b">Vídeo</div>
+              <div class="tl__track"><div class="clip" style="left:1%;width:97%">Produção audiovisual · roteiro, captação, montagem, color</div></div>
+            </div>
+            <div class="tl__row">
+              <div class="tl__label" style="--dot:#f27a3d">Motion</div>
+              <div class="tl__track"><div class="clip" style="left:26%;width:72%;--clip:#f27a3d">Motion design · identidade em movimento</div></div>
+            </div>
+            <div class="tl__row">
+              <div class="tl__label" style="--dot:#b3441a">Design</div>
+              <div class="tl__track"><div class="clip" style="left:13%;width:85%;--clip:#b3441a">Design e comunicação de marcas</div></div>
+            </div>
+            <div class="tl__row">
+              <div class="tl__label" style="--dot:#8e8a86">Eventos</div>
+              <div class="tl__track"><div class="clip" style="left:39%;width:59%;--clip:#4a4a4a">Cobertura real time · Bode Rei, Expocouro, Congo tá na Moda</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUEM SOMOS ===================== -->
+<section class="section orange-waves grain about" id="quem-somos">
+  <div class="wrap">
+    <div class="window">
+      <div class="window__bar">
+        <span class="window__app app-ae"><b>Ae</b> Adobe After Effects 2026</span>
+        <span class="window__menu" aria-hidden="true"><span>Arquivo</span><span>Editar</span><span>Composição</span><span>Camada</span><span>Efeito</span><span>Animação</span></span>
+        <span class="window__title">quem_somos.aep</span>
+        <span class="window__ctl" aria-hidden="true"><span>—</span><span>☐</span><span>✕</span></span>
+      </div>
+      <div class="window__tabs" aria-hidden="true"><span class="is-on">Padrão</span><span>Revisão</span><span>Aprendizado</span><span>Tela pequena</span></div>
+      <div class="window__body">
+        <div class="about__text grain">
+          <h2 class="display display--l"><span>Quem</span>somos?</h2>
+          <div class="body">
+            <p>A <strong>Conecta Comunicação e Produtora</strong> nasceu em 2020, em um momento em que o mundo precisou encontrar novas formas de se comunicar.</p>
+            <p>Em meio aos desafios impostos pela pandemia, começamos com uma ideia simples: <mark>usar a comunicação e o audiovisual para aproximar pessoas, marcas e histórias.</mark> Mergulhamos na produção audiovisual, na criação de conteúdos, na comunicação de marcas e na cobertura de grandes eventos.</p>
+            <p>Em cada novo projeto, fomos entendendo ainda mais aquilo que nos move: <mark>não se trata apenas de produzir vídeos. Trata-se de encontrar histórias, dar significado a elas e fazer com que cheguem a quem precisa vê-las.</mark></p>
+          </div>
+        </div>
+        <div class="about__media">
+          <!-- Substitua pelos arquivos reais: <img src="..." alt="Equipe da Conecta na Festa do Bode Rei"> -->
+          <figure class="photo" role="img" aria-label="Equipe da Conecta em cobertura de evento">Foto da equipe · cobertura de evento</figure>
+          <figure class="photo" role="img" aria-label="Equipe da Conecta no Açude Epitácio Pessoa">Foto da equipe · Açude Epitácio Pessoa</figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MANIFESTO ===================== -->
+<section class="section dark grain arc arc--bottom-orange">
+  <div class="wrap split">
+    <div>
+      <h2 class="display display--l">Um vídeo vai muito além de visuais bonitos.</h2>
+    </div>
+    <div class="body">
+      <p>Na Conecta, acreditamos que um vídeo, um design ou uma fotografia precisam ter propósito, transmitir sentimentos e criar conexões. Por isso, valorizamos o diálogo e a troca de experiências com nossos clientes durante todo o processo criativo, buscando compreender a essência do produto e potencializar sua capacidade de conexão com o público.</p>
+      <div class="pills" style="margin-top:1.5rem">
+        <a class="pill" href="#" data-video>Hino da Festa do Bode Rei 2026</a>
+        <a class="pill" href="#" data-video>Açude Epitácio Pessoa 2025</a>
+        <a class="pill" href="#" data-video>Festa do Bode Rei 2026</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVIÇOS ===================== -->
+<div id="servicos">
+
+  <!-- Contando histórias -->
+  <section class="band orange-waves grain on-orange">
+    <div class="wrap band__in">
+      <div class="band__copy">
+        <h2 class="display display--l">Contando histórias</h2>
+        <p class="body">Toda marca, evento ou pessoa tem algo para contar. Nosso trabalho é transformar essas histórias em narrativas visuais capazes de despertar sentimentos e criar identificação. Para isso, participamos na criação do plano de mídia, elaboramos roteiros e damos vida a eles através da captura de imagem e áudio, montagem, sound design, color grading e motion design.</p>
+      </div>
+      <div class="band__side">
+        <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11.5V4a1.5 1.5 0 0 1 3 0v6l4.2.9a3 3 0 0 1 2.3 3.4l-.6 3.3A4 4 0 0 1 14 21h-3.4a4 4 0 0 1-3-1.4L4.6 16a1.5 1.5 0 0 1 2.2-2l2.2 2.2"/></svg>Clique e confira</span>
+        <div class="pills">
+          <a class="pill" href="#" data-video>Expocouro 2025</a>
+          <a class="pill" href="#" data-video>Crocheteiras do Marinho</a>
+          <a class="pill" href="#" data-video>Expoagropeixe 2026</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- tools ribbon -->
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon__track">
+      <span>After Effects <em>+</em> Premiere <em>+</em> Photoshop <em>+</em> Illustrator <em>+</em> Lightroom <em>+</em> Sound design <em>+</em> Color grading <em>+</em> Motion design <em>+</em></span>
+      <span>After Effects <em>+</em> Premiere <em>+</em> Photoshop <em>+</em> Illustrator <em>+</em> Lightroom <em>+</em> Sound design <em>+</em> Color grading <em>+</em> Motion design <em>+</em></span>
+    </div>
+  </div>
+
+  <!-- Dando vida às marcas -->
+  <section class="band dark grain">
+    <div class="wrap band__in">
+      <div class="band__side" style="order:2">
+        <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11.5V4a1.5 1.5 0 0 1 3 0v6l4.2.9a3 3 0 0 1 2.3 3.4l-.6 3.3A4 4 0 0 1 14 21h-3.4a4 4 0 0 1-3-1.4L4.6 16a1.5 1.5 0 0 1 2.2-2l2.2 2.2"/></svg>Clique e confira</span>
+        <div class="pills">
+          <a class="pill" href="#" data-video>Institucional Festa do Bode Rei 2026</a>
+          <a class="pill" href="#" data-video>Congo tá na Moda 2026</a>
+          <a class="pill" href="#" data-video>Cavalgada Rota do Couro 2025</a>
+        </div>
+      </div>
+      <div class="band__copy">
+        <h2 class="display display--l">Dando vida às marcas</h2>
+        <p class="body">Uma marca não é apenas um logo. É uma identidade, uma personalidade e uma forma de se comunicar com o mundo. Criamos conteúdos que ajudam marcas a encontrar sua voz e ocupar seu espaço.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registrando momentos -->
+  <section class="band orange-waves grain on-orange">
+    <div class="wrap band__in">
+      <div class="band__copy">
+        <h2 class="display display--l">Registrando momentos</h2>
+        <p class="body">Alguns momentos acontecem uma única vez. Por isso, registrá-los é também preservar aquilo que não queremos esquecer. Transformamos acontecimentos em memórias que podem ser revividas através de imagens. Além disso, conectamos pessoas a eventos através de nossas coberturas real time, que por meio de conteúdos dinâmicos divulgam e criam um sentimento de proximidade com o público.</p>
+      </div>
+      <div class="band__side">
+        <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11.5V4a1.5 1.5 0 0 1 3 0v6l4.2.9a3 3 0 0 1 2.3 3.4l-.6 3.3A4 4 0 0 1 14 21h-3.4a4 4 0 0 1-3-1.4L4.6 16a1.5 1.5 0 0 1 2.2-2l2.2 2.2"/></svg>Clique e confira</span>
+        <div class="pills">
+          <a class="pill" href="#" data-video>Motocross 2025</a>
+          <a class="pill" href="#" data-video>Festa do Bode Rei 2026</a>
+          <a class="pill" href="#" data-video>Congo tá na Moda 2026</a>
+          <a class="pill" href="#" data-video>Matrimônio (2024)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== COMUNIDADES ===================== -->
+<section class="section dark grain" id="comunidades">
+  <div class="wrap">
+    <div class="window">
+      <div class="window__bar">
+        <span class="window__app app-pr"><b>Pr</b> Adobe Premiere</span>
+        <span class="window__menu" aria-hidden="true"><span>Arquivo</span><span>Editar</span><span>Clipe</span><span>Sequência</span><span>Gráficos e títulos</span></span>
+        <span class="window__title">comunidades.prproj</span>
+        <span class="window__ctl" aria-hidden="true"><span>—</span><span>☐</span><span>✕</span></span>
+      </div>
+      <div class="window__body" style="padding:clamp(2rem,5vw,4rem)">
+        <div class="split" style="grid-template-columns:1fr 1fr">
+          <div class="band__copy">
+            <h2 class="display display--l">Construindo comunidades</h2>
+            <p class="body">Mais do que alcançar pessoas, queremos fazer com que elas se sintam parte. Criamos projetos diferenciados, dinâmicos e bem-humorados, que aproximam marcas de seus públicos de uma forma leve, autêntica e verdadeira. Conteúdos que convidam as pessoas a participar, interagir e, principalmente, se reconhecer dentro daquilo que a marca representa. Porque quando existe identificação, a comunicação deixa de ser apenas uma mensagem — vira comunidade.</p>
+            <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11.5V4a1.5 1.5 0 0 1 3 0v6l4.2.9a3 3 0 0 1 2.3 3.4l-.6 3.3A4 4 0 0 1 14 21h-3.4a4 4 0 0 1-3-1.4L4.6 16a1.5 1.5 0 0 1 2.2-2l2.2 2.2"/></svg>Clique e confira</span>
+            <div class="pills">
+              <a class="pill pill--orange" href="#" data-video>Anúncio Festa do Bode Rei 2025</a>
+              <a class="pill pill--orange" href="#" data-video>Clipe Expocouro 2025</a>
+              <a class="pill pill--orange" href="#" data-video>São João na Roliúde 2026</a>
+              <a class="pill pill--orange" href="#" data-video>Vaquejada 2025</a>
+              <a class="pill pill--orange" href="#" data-video>Festa do Bode Rei 2026</a>
+              <a class="pill pill--orange" href="#" data-video>Congo além da Moda 2026</a>
+            </div>
+          </div>
+          <div class="stats" aria-label="Perfis que a Conecta gerencia">
+            <div class="stat">
+              <span class="stat__avatar">Bode Rei</span>
+              <div><div class="stat__name">Festa do Bode Rei</div>
+                <div class="stat__nums"><span><b>354</b>posts</span><span><b>40,6 mil</b>seguidores</span><span><b>12</b>seguindo</span></div></div>
+            </div>
+            <div class="stat">
+              <span class="stat__avatar">Expo Rural</span>
+              <div><div class="stat__name">Exporuralqueimadas</div>
+                <div class="stat__nums"><span><b>398</b>posts</span><span><b>8.245</b>seguidores</span><span><b>22</b>seguindo</span></div></div>
+            </div>
+            <div class="stat">
+              <span class="stat__avatar">Agro Peixe</span>
+              <div><div class="stat__name">Expo Agropeixe</div>
+                <div class="stat__nums"><span><b>93</b>posts</span><span><b>4.051</b>seguidores</span><span><b>10</b>seguindo</span></div></div>
+            </div>
+            <div class="stat">
+              <span class="stat__avatar">Expo Couro</span>
+              <div><div class="stat__name">Expocouro</div>
+                <div class="stat__nums"><span><b>116</b>posts</span><span><b>6.745</b>seguidores</span><span><b>7</b>seguindo</span></div></div>
+            </div>
+            <div class="stat">
+              <span class="stat__avatar">Congo</span>
+              <div><div class="stat__name">Festival Congo tá na Moda</div>
+                <div class="stat__nums"><span><b>110</b>posts</span><span><b>3.505</b>seguidores</span><span><b>2</b>seguindo</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE ===================== -->
+<section class="section orange-waves grain case on-orange" id="case">
+  <div class="wrap">
+    <div class="window">
+      <div class="window__bar">
+        <span class="window__app app-ps"><b>Ps</b> Adobe Photoshop</span>
+        <span class="window__menu" aria-hidden="true"><span>Arquivo</span><span>Editar</span><span>Imagem</span><span>Camada</span><span>Texto</span><span>Filtro</span></span>
+        <span class="window__title">central_informa_bode.psd</span>
+        <span class="window__ctl" aria-hidden="true"><span>—</span><span>☐</span><span>✕</span></span>
+      </div>
+      <div class="window__body">
+        <div class="case__text">
+          <h2 class="display display--l">Case: Central Informa Bode</h2>
+          <p class="body">Na criação do plano de mídia para a Festa do Bode Rei 2026, o cliente nos apresentou a necessidade de encontrar uma forma mais assertiva de se comunicar com seu público. Era necessário transmitir informações importantes e evidenciar as melhorias e respostas do evento aos anseios dos participantes através de vídeos mais dinâmicos e bem-humorados, que gerassem engajamento e despertassem o interesse de quem assistisse.</p>
+          <p class="body">Para isso, criamos a série de vídeos da <strong>Central Informa Bode</strong>: um serviço que já existia no festival — o Informa Bode — transformado em uma versão digital com linguagem simples e direta, dinamismo e bom humor, falando diretamente com o público e aumentando a proximidade entre a marca e seus seguidores.</p>
+          <div class="pills"><a class="pill pill--orange" href="#" data-video>Assistir à série</a></div>
+        </div>
+        <div class="case__poster" role="img" aria-label="Pôster da série Central Informa Bode">
+          <svg class="crown" viewBox="0 0 56 36" aria-hidden="true"><path d="M4 30h48l4-22-14 10L28 2 14 18 0 8z" fill="#5a3410"/></svg>
+          <div class="display">Central<br>Informa<br>Bode</div>
+          <small>Substitua por: poster da série (apresentadoras ao telefone)</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTATO ===================== -->
+<section class="contact orange-waves grain" id="contato">
+  <div class="contact__disc" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <h2 class="sr-only">Vamos conectar?</h2>
+    <svg class="contact__arcText" viewBox="0 0 900 260" aria-hidden="true">
+      <defs><path id="arco" d="M40 240 Q450 -60 860 240"/></defs>
+      <text><textPath href="#arco" startOffset="50%" text-anchor="middle">Vamos conectar?</textPath></text>
+    </svg>
+    <div class="contact__body">
+      <div class="contact__lines">
+        <a href="tel:+5583989014340">(83) 9 8901-4340</a>
+        <a href="tel:+5583981322998">(83) 9 8132-2998</a>
+      </div>
+      <a class="contact__mail" href="mailto:contatoconectastreaming@gmail.com">contatoconectastreaming@gmail.com</a>
+      <div class="pills" style="justify-content:center;margin-top:1rem">
+        <a class="pill pill--orange" href="https://wa.me/5583989014340" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <a class="pill" href="https://instagram.com/conectacom_" target="_blank" rel="noopener">Seguir no Instagram</a>
+      </div>
+      <a class="contact__handle" href="https://instagram.com/conectacom_" target="_blank" rel="noopener">@conectacom_</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Conecta Comunicação e Produtora · desde 2020</span>
+    <span>Cabaceiras — Paraíba · Roliúde Nordestina</span>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const nav=document.querySelector('.nav'),burger=document.querySelector('.nav__burger');
+  burger.addEventListener('click',()=>{
+    const open=nav.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+  });
+  nav.querySelectorAll('.nav__links a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');burger.setAttribute('aria-expanded',false)}));
+
+  // Vídeos: preencha o mapa abaixo com os links reais (YouTube, Instagram, Drive…)
+  // A chave é o texto do botão; se não houver link, o botão apenas avisa.
+  const videos={
+    // "Hino da Festa do Bode Rei 2026":"https://www.instagram.com/reel/...",
+  };
+  document.querySelectorAll('[data-video]').forEach(a=>{
+    const url=videos[a.textContent.trim()];
+    if(url){a.href=url;a.target='_blank';a.rel='noopener';}
+    else a.addEventListener('click',e=>{e.preventDefault();a.classList.add('is-missing');a.title='Link do vídeo ainda não definido';});
+  });
+
+  // draw-in of the bezier path on load (one orchestrated moment)
+  const p=document.querySelector('.bezier .draw');
+  if(p&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const len=p.getTotalLength();
+    p.style.strokeDasharray=len;p.style.strokeDashoffset=len;
+    p.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:1400,easing:'cubic-bezier(.6,0,.2,1)',fill:'forwards',delay:200});
+  }
+</script>
+</body>
+</html>

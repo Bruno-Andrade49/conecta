@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Self-hosted brand typeface — Baloo 2 (variable), latin subset only.
+   Chosen to match the rounded, friendly letterforms of the Conecta logotype
+   itself (the same font family the "Conecta" wordmark is set in), used for
+   both display headlines and running text so the whole site reads as one
+   consistent voice with the logo.
+   ========================================================================== */
+@font-face {
+  font-family: "Baloo 2";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("./assets/fonts/baloo2-variable.woff2") format("woff2");
+}
+
+/* ==========================================================================
+   Design tokens — Conecta brand system (Tailwind v4 CSS-first theme).
+   Colors are the client's existing palette (charcoal + signal orange),
+   carried over from the source brand material, not re-invented.
+   ========================================================================== */
+@theme {
+  --font-sans: "Baloo 2", system-ui, sans-serif;
+
+  /* Brand palette — the six below (carvao*, off-white, cinza*, hairline)
+     are the theme-flippable surface/text system, redefined for light mode
+     just below the @theme block. laranja*, ink and paper never flip: they
+     back the constant orange brand bands (Manifesto/Contato) and the
+     software-chrome components (AppWindow, navbar, footer), which stay the
+     same regardless of the visitor's theme choice. */
+  --color-carvao: #1c1c1c;
+  --color-carvao-soft: #262626;
+  --color-carvao-deep: #141414;
+  --color-cinza: #8e8a86;
+  --color-cinza-claro: #d9d4cf;
+  --color-off-white: #f7f5f2;
+  --color-hairline: #ffffff;
+
+  --color-laranja: #e0561b;
+  --color-laranja-dark: #b3441a;
+  --color-laranja-light: #f27a3d;
+  --color-ink: #141414;
+  --color-paper: #f7f5f2;
+
+  /* Fluid display type — planned around a 2-line hero headline */
+  --text-display-xl: clamp(2.75rem, 1.35rem + 6.4vw, 5.75rem);
+  --text-display-xl--line-height: 0.94;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-l: clamp(2.1rem, 1.4rem + 3.2vw, 3.75rem);
+  --text-display-l--line-height: 0.98;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-m: clamp(1.5rem, 1.2rem + 1.3vw, 2.1rem);
+  --text-display-m--line-height: 1.05;
+  --text-lead: clamp(1.05rem, 0.96rem + 0.4vw, 1.2rem);
+  --text-lead--line-height: 1.5;
+
+  /* Shape system — one radius family, used consistently */
+  --radius-window: 18px;
+  --radius-clip: 26px;
+
+  /* Motion easing */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --breakpoint-xs: 22.5rem;
+}
+
+/* ==========================================================================
+   Light mode — the "colour grading" flip of the theme toggle (see
+   ThemeToggle.vue). Only the six flippable tokens above are redefined here;
+   everything reachable through them (bg-carvao, text-off-white, text-cinza,
+   border-hairline/*, …) updates automatically since Tailwind v4 utilities
+   read these as CSS custom properties rather than baking in the hex value.
+   Higher specificity than the `@theme` block's `:root,:host` output, so
+   this wins whenever `data-theme="light"` is set on <html> by useTheme.js.
+   ========================================================================== */
+:root[data-theme="light"] {
+  --color-carvao: #f7f4ef;
+  --color-carvao-soft: #ffffff;
+  --color-carvao-deep: #ece7de;
+  --color-cinza: #655e54;
+  --color-cinza-claro: #3a3733;
+  --color-off-white: #1c1c1c;
+  --color-hairline: #1c1c1c;
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    color-scheme: dark;
+  }
+  body {
+    background-color: var(--color-carvao);
+    color: var(--color-off-white);
+    font-feature-settings: "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    /* The theme toggle is a "colour grade" switch, not a hard cut: fade
+       every surface/text colour change instead of snapping between them. */
+    transition: background-color 0.4s ease;
+  }
+  /* Smooth, cheap (background-color/color/border-color/fill only) theme
+     transition for anything that doesn't already declare its own
+     transition-property — elements with a Tailwind transition utility
+     (buttons, cards) keep using their own list untouched. */
+  *,
+  *::before,
+  *::after {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, fill 0.4s ease;
+  }
+  ::selection {
+    background: var(--color-laranja);
+    color: #fff;
+  }
+  /* Orange highlight marker for a handful of key phrases in the running
+     copy — a small callback to the brand's own highlighted-phrase habit.
+     Sections whose own background is already orange (`.on-orange`) flip
+     the marker to dark-on-nothing so it still reads as a highlight. */
+  mark {
+    background: var(--color-laranja);
+    color: var(--color-ink);
+    padding: 0.05em 0.3em;
+    border-radius: 4px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .on-orange mark {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-laranja-light);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Custom utilities (Tailwind v4 @utility — variant-aware, tree-shaken)
+   ========================================================================== */
+
+/* Subtle film-grain noise, always pinned + non-interactive (never on a
+   scrolling container, to keep GPU repaint cost near zero). */
+@utility grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Hides scrollbars on horizontally-scrollable strips (pill rails) while
+   keeping them keyboard/touch scrollable. */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance-safe {
+  text-wrap: balance;
+}
