@@ -24,7 +24,8 @@ const scrolled = computed(() => y.value > 8)
 
 const open = ref(false)
 const menuRef = ref(null)
-onClickOutside(menuRef, () => (open.value = false))
+const toggleRef = ref(null)
+onClickOutside(menuRef, () => (open.value = false), { ignore: [toggleRef] })
 
 function closeMenu() {
   open.value = false
@@ -58,6 +59,7 @@ function closeMenu() {
       </div>
 
       <button
+        ref="toggleRef"
         type="button"
         class="ml-auto grid h-10 w-10 place-items-center rounded-full text-off-white lg:hidden"
         :aria-expanded="open"

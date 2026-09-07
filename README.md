@@ -137,6 +137,80 @@ qualquer hospedagem de arquivos estáticos serve. As mais simples:
 2. Envie o conteúdo da pasta `dist/` (via FTP/painel) para a pasta pública do
    domínio (geralmente `public_html/`).
 
+## SEO
+
+O `index.html` já sai do build com a estrutura básica de SEO on-page:
+
+- **Título e meta description** únicos, descrevendo o negócio.
+- **`<link rel="canonical">`** e **`<meta name="robots" content="index, follow">`**.
+- **Open Graph + Twitter Card** completos (título, descrição, imagem
+  1200×630 com `alt`, `site_name`, `locale`), usando `public/og-cover.jpg`
+  como imagem de compartilhamento.
+- **Dados estruturados (JSON-LD, `schema.org/LocalBusiness`)**: nome,
+  telefone, e-mail, endereço (Cabaceiras/PB), ano de fundação e Instagram —
+  ajuda o Google a exibir a empresa de forma mais rica (inclusive no Google
+  Meu Negócio/Maps).
+- **`robots.txt`** liberando todo o site para indexação e apontando pro
+  `sitemap.xml`.
+- **`sitemap.xml`** com a página única do site (é uma landing page de uma
+  página só; se no futuro surgirem mais páginas/rotas, adicione uma
+  entrada `<url>` por página aqui).
+- **Ícones completos**: favicon SVG (nítido em qualquer tela), PNGs de
+  fallback (16/32px), `apple-touch-icon` (180px) e `site.webmanifest` com
+  ícones 192/512px — cobre aba do navegador, atalho na tela inicial do
+  iOS/Android e instalação como PWA básica.
+- **Um único `<h1>` por página**, hierarquia de headings (`h1` → `h2` →
+  `h3`) sem pular níveis, e `alt` descritivo em toda imagem de conteúdo
+  (decorativas usam `alt=""`).
+
+O que **não** está incluso (porque depende de decisão do negócio, não é
+técnico): Google Search Console/Analytics, blog para SEO de conteúdo, e
+backlinks. Nada disso é bloqueio para o lançamento.
+
+## Segurança
+
+Por ser um site 100% estático (sem backend, sem login, sem banco de
+dados), a superfície de ataque é pequena, mas os seguintes cuidados foram
+aplicados:
+
+- **Content-Security-Policy (CSP) restritiva**: só permite scripts,
+  estilos, fontes e imagens da própria origem (`'self'`), bloqueia
+  `<object>`/plugins, proíbe o site de ser carregado dentro de um
+  `<iframe>` de terceiros (`frame-ancestors 'none'`) e força HTTPS em
+  todo recurso (`upgrade-insecure-requests`).
+- **Outros headers de segurança**: `X-Content-Type-Options: nosniff`
+  (impede o navegador de "adivinhar" tipo de arquivo), `X-Frame-Options:
+  DENY` (reforça a proteção contra clickjacking), `Referrer-Policy:
+  strict-origin-when-cross-origin` (não vaza a URL completa pra sites
+  externos), `Permissions-Policy` (desliga câmera/microfone/geolocalização
+  que o site nunca usa) e `Strict-Transport-Security` (HSTS, força HTTPS
+  no navegador do visitante).
+- Esses headers estão configurados em dois formatos, prontos para os
+  destinos de hospedagem mais comuns — o build não sabe ainda em qual
+  serviço vai parar:
+  - `vercel.json` (Vercel)
+  - `public/_headers` (Netlify — o Vite já copia esse arquivo pra dentro
+    de `dist/` automaticamente)
+  
+  Se a hospedagem final for outra (cPanel, S3+CloudFront, etc.), copie os
+  valores de header de um desses dois arquivos para a configuração do
+  servidor/CDN usado.
+- A CSP foi **testada de verdade** contra o build de produção (servidor
+  local aplicando o header real + Chromium headless verificando o
+  console): zero erros, zero violação de CSP, fonte e imagens carregam
+  normalmente.
+- **Sem `v-html`** em lugar nenhum do código (elimina o principal vetor de
+  XSS em apps Vue).
+- Todo link externo (`target="_blank"`) usa `rel="noopener noreferrer"`
+  (evita que a aba aberta manipule a página de origem ou vaze o
+  `referrer`).
+- **`npm audit`**: 0 vulnerabilidades nas dependências no momento da
+  última verificação. Rode `npm audit` de tempos em tempos, especialmente
+  antes de publicar uma atualização.
+- O formulário de contato é só front-end (não envia dados a lugar nenhum
+  além do link do WhatsApp) — não há superfície de injeção de
+  servidor/banco de dados a proteger.
+
 ## Acessibilidade e performance
 
 - Contraste de texto testado nas combinações de cor usadas (WCAG AA).
