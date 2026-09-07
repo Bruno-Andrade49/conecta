@@ -10,7 +10,7 @@ import { ROSTER } from '../../data/content'
   <p class="sr-only">Eventos e marcas já cobertos pela Conecta: {{ ROSTER.join(', ') }}.</p>
   <div class="overflow-hidden border-y border-hairline/10 bg-carvao-deep py-4" aria-hidden="true">
     <div class="flex w-max animate-[marquee_38s_linear_infinite] gap-10 whitespace-nowrap">
-      <span v-for="pass in 2" :key="pass" class="flex gap-10 pr-10 text-lg font-black uppercase tracking-tight text-cinza-claro/70 sm:text-xl">
+      <span v-for="pass in 2" :key="pass" class="flex gap-10 text-lg font-black uppercase tracking-tight text-cinza-claro/70 sm:text-xl">
         <template v-for="(item, i) in ROSTER" :key="item">
           {{ item }}
           <span v-if="i < ROSTER.length - 1" class="text-laranja">/</span>

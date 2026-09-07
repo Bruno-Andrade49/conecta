@@ -34,6 +34,7 @@ export const ROSTER = [
   'Cavalgada Rota do Couro',
   'Vaquejada',
   'Motocross',
+  ''
 ]
 
 export const WHAT_WE_DO = [
