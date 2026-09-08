@@ -23,38 +23,40 @@ const TRACKS = [
     :menu="['Arquivo', 'Editar', 'Clipe', 'Sequência', 'Marcadores']"
     :tabs="[{ label: 'Importar' }, { label: 'Editar', active: true }, { label: 'Exportar' }]"
   >
-    <div class="grid grid-cols-[92px_1fr] text-[0.72rem] sm:grid-cols-[140px_1fr] sm:text-[0.8rem]">
-      <div class="border-b border-hairline/10 bg-carvao-soft px-3 py-2 text-cinza">Sequência</div>
-      <div class="flex items-end border-b border-hairline/10 bg-carvao-soft" aria-hidden="true">
-        <span v-for="year in YEARS" :key="year" class="flex-1 border-l border-hairline/30 pb-1 pl-1.5 text-[0.62rem] text-cinza/70">
-          {{ year }}
-        </span>
-      </div>
-
-      <template v-for="track in TRACKS" :key="track.name">
-        <div class="flex items-center gap-2 border-b border-hairline/10 bg-carvao-soft px-3 py-3 font-semibold text-cinza-claro">
-          <span class="h-2 w-2 flex-none rounded-[2px]" :style="{ background: track.color }" aria-hidden="true" />
-          {{ track.name }}
+    <div class="overflow-x-auto">
+      <div class="grid grid-cols-[92px_minmax(560px,1fr)] text-[0.72rem] sm:grid-cols-[140px_minmax(560px,1fr)] sm:text-[0.8rem]">
+        <div class="sticky left-0 z-10 border-b border-hairline/10 bg-carvao-soft px-3 py-2 text-cinza">Sequência</div>
+        <div class="flex items-end border-b border-hairline/10 bg-carvao-soft" aria-hidden="true">
+          <span v-for="year in YEARS" :key="year" class="flex-1 border-l border-hairline/30 pb-1 pl-1.5 text-[0.62rem] text-cinza/70">
+            {{ year }}
+          </span>
         </div>
-        <div
-          class="relative border-b border-hairline/10 px-1.5 py-2"
-          style="background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 12.5% 100%"
-        >
-          <div
-            class="absolute inset-y-1.5 flex items-center overflow-hidden whitespace-nowrap rounded-md px-2.5 text-[0.68rem] font-bold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]"
-            :style="{ left: track.left, width: track.width, background: track.color }"
-          >
-            {{ track.clip }}
+
+        <template v-for="track in TRACKS" :key="track.name">
+          <div class="sticky left-0 z-10 flex items-center gap-2 border-b border-hairline/10 bg-carvao-soft px-3 py-3 font-semibold text-cinza-claro">
+            <span class="h-2 w-2 flex-none rounded-[2px]" :style="{ background: track.color }" aria-hidden="true" />
+            {{ track.name }}
           </div>
-        </div>
-      </template>
+          <div
+            class="relative border-b border-hairline/10 px-1.5 py-2"
+            style="background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 12.5% 100%"
+          >
+            <div
+              class="absolute inset-y-1.5 flex items-center overflow-hidden whitespace-nowrap rounded-md px-2.5 text-[0.68rem] font-bold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]"
+              :style="{ left: track.left, width: track.width, background: track.color }"
+            >
+              {{ track.clip }}
+            </div>
+          </div>
+        </template>
 
-      <div
-        class="pointer-events-none absolute inset-y-0 w-px bg-laranja-light [animation:scrub_16s_linear_infinite]"
-        :style="{ gridColumn: '2', gridRow: `2 / span ${TRACKS.length}` }"
-        aria-hidden="true"
-      >
-        <span class="absolute -left-[7px] -top-px h-0 w-0 border-x-[7px] border-t-[9px] border-x-transparent border-t-laranja-light" />
+        <div
+          class="pointer-events-none absolute inset-y-0 w-px bg-laranja-light [animation:scrub_16s_linear_infinite]"
+          :style="{ gridColumn: '2', gridRow: `2 / span ${TRACKS.length}` }"
+          aria-hidden="true"
+        >
+          <span class="absolute -left-[7px] -top-px h-0 w-0 border-x-[7px] border-t-[9px] border-x-transparent border-t-laranja-light" />
+        </div>
       </div>
     </div>
   </AppWindow>

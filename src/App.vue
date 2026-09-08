@@ -1,6 +1,7 @@
 <script setup>
 import AppNavbar from './components/layout/AppNavbar.vue'
 import AppFooter from './components/layout/AppFooter.vue'
+import BackToTopButton from './components/ui/BackToTopButton.vue'
 import HeroSection from './components/sections/HeroSection.vue'
 import RosterMarquee from './components/sections/RosterMarquee.vue'
 import AboutSection from './components/sections/AboutSection.vue'
@@ -24,4 +25,5 @@ import ContactSection from './components/sections/ContactSection.vue'
     <ContactSection />
   </main>
   <AppFooter />
+  <BackToTopButton />
 </template>
